@@ -18,11 +18,11 @@ Proje, esnek ve ölçeklenebilir bir yapı sunmak üzere aşağıdaki mimari ve 
 
 Geliştirme sürecinde modern mobil uygulama mimarisine sadık kalınmış olup aşağıdaki teknolojiler kullanılmıştır:
 
-*   **Frontend:** React Native (JavaScript)
+*   **Frontend:** React Native (TypeScript)
 *   **Navigasyon:** React Navigation (Bottom Tabs & Native Stack)
 *   **State Yönetimi:** Context API 
 *   **Yerel Depolama:** AsyncStorage
-*   **API İletişimi:** Axios/Fetch (Tüm API çağrıları `services/api.js` katmanında modüler olarak soyutlanmıştır)
+*   **API İletişimi:** Axios/Fetch (Tüm API çağrıları `services/api.ts` katmanında modüler olarak soyutlanmıştır)
 
 ## Kurulum ve Çalıştırma
 
@@ -47,18 +47,16 @@ Projeyi lokal ortamda çalıştırmak için aşağıdaki adımların izlenmesi g
 
 ## API ve Veri Modeli
 
-Projede veri yönetimi esnek ve genişletilebilir bir yapıya oturtulmuştur. Ekran bileşenleri (components) doğrudan API çağrısı yapmamaktadır; tüm asenkron işlemler `services/api.js` üzerinden yönetilir.
+Projede veri yönetimi esnek ve genişletilebilir bir yapıya oturtulmuştur. Ekran bileşenleri (components) doğrudan API çağrısı yapmamaktadır; tüm asenkron işlemler `services/api.ts` üzerinden yönetilir.
 Gelecekte gerçek bir backend servisi (örn. Laravel REST API) bağlandığında, arayüz kodlarında değişikliğe gidilmeden sadece bu servis katmanının güncellenmesi yeterli olacaktır.
 
 **Temel Endpoint Şeması:**
 *   `GET /events` : Tüm etkinlik listesini döner.
 *   `GET /events/:id` : Belirli bir etkinliğin detaylarını döner.
 *   `POST /tickets` : Yeni bilet oluşturur (simülasyon).
-*   `GET /tickets/:userId` : Kullanıcıya ait aktif ve geçmiş biletleri listeler.
+*   `GET /tickets/:userId` : Kullanıcıya ait aktif ve geçmiş biletleri listeler
 
-  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
----
+  ---------------------------------------------------------------------------------------------------------------------------
 
 # EN: Evently - Event Discovery and Ticket Management Application
 
@@ -80,11 +78,11 @@ The project is designed to meet the following architectural and functional requi
 
 During the development process, modern mobile application architecture was strictly followed, and the following technologies were utilized:
 
-*   **Frontend:** React Native (JavaScript)
+*   **Frontend:** React Native (TypeScript)
 *   **Navigation:** React Navigation (Bottom Tabs & Native Stack)
 *   **State Management:** Context API 
 *   **Local Storage:** AsyncStorage
-*   **API Communication:** Axios/Fetch (All API calls are abstracted modularly within the `services/api.js` layer)
+*   **API Communication:** Axios/Fetch (All API calls are abstracted modularly within the `services/api.ts` layer)
 
 ## Installation and Setup
 
@@ -109,7 +107,7 @@ To run the project in a local environment, the following steps should be followe
 
 ## API and Data Model
 
-Data management in the project is built on a flexible and extensible structure. Screen components do not make direct API calls; all asynchronous operations are managed through `services/api.js`. In the future, when a real backend service (e.g., Laravel REST API) is connected, it will be sufficient to update only this service layer without making changes to the interface codes.
+Data management in the project is built on a flexible and extensible structure. Screen components do not make direct API calls; all asynchronous operations are managed through `services/api.ts`. In the future, when a real backend service (e.g., Laravel REST API) is connected, it will be sufficient to update only this service layer without making changes to the interface codes.
 
 **Basic Endpoint Schema:**
 *   `GET /events` : Returns the entire event list.

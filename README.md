@@ -30,7 +30,7 @@ Projeyi lokal ortamda çalıştırmak için aşağıdaki adımların izlenmesi g
 
 1.  **Repoyu Klonlayın:**
     ```bash
-    git clone [https://github.com/Sema-ince/Evently-App.git](https://github.com/Sema-ince/Evently-App.git)
+    git clone https://github.com/Sema-ince/Evently-App.git
     cd Evently-App
     ```
 
@@ -90,7 +90,7 @@ To run the project in a local environment, the following steps should be followe
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/Sema-ince/Evently-App.git](https://github.com/Sema-ince/Evently-App.git)
+    git clone https://github.com/Sema-ince/Evently-App.git
     cd Evently-App
     ```
 

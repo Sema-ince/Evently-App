@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Switch, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from '../context/ThemeContext';
-import CustomTabBar from '../components/CustomTabBar'; // Alt menümüz
+import CustomTabBar from '../components/CustomTabBar'; // Alt menumuz
 
 const ProfileScreen = ({ navigation }: any) => {
   const { colors } = useContext(ThemeContext);
   const [userName, setUserName] = useState('Kullanıcı');
   const [userEmail, setUserEmail] = useState('');
-  
-  // Bildirimler için görsel state
-  const [notifications, setNotifications] = useState(true);
 
   useEffect(() => {
     // Profil sayfası açıldığında veriyi yenile
@@ -85,20 +82,6 @@ const ProfileScreen = ({ navigation }: any) => {
             </View>
             <Ionicons name="chevron-forward" size={24} color={colors.textSecondary} />
           </TouchableOpacity>
-
-          {/* Bildirimler */}
-          <View style={[styles.settingRow, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
-            <View style={styles.settingLeft}>
-              <Ionicons name="notifications-outline" size={24} color={colors.primary} />
-              <Text style={[styles.settingText, { color: colors.text }]}>Bildirimler</Text>
-            </View>
-            <Switch 
-              value={notifications} 
-              onValueChange={(val) => setNotifications(val)} 
-              trackColor={{ false: '#767577', true: colors.primary }}
-              thumbColor={'#fff'}
-            />
-          </View>
         </View>
 
         {/* Çıkış Yap Butonu */}

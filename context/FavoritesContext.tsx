@@ -1,43 +1,55 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// 1. Her sayfanın erişebileceği ortak Context'i (Hafızayı) oluşturuyoruz
 export const FavoritesContext = createContext<any>(null);
 
-// 2. Bu hafızayı yönetecek olan Sağlayıcı (Provider) bileşenimiz
 export const FavoritesProvider = ({ children }: any) => {
-  // Sadece favoriye eklenen etkinliklerin ID'lerini tutacağız: Örn: ['1', '3']
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
-  // Uygulama ilk açıldığında fiziksel hafızadan (AsyncStorage) favorileri çek
+  // 1. Önce giriş yapan kullanıcının e-postasını bulalım ve ona ait favorileri yükleyelim
   useEffect(() => {
-    const loadFavorites = async () => {
+    const loadUserAndFavorites = async () => {
       try {
-        const savedFavs = await AsyncStorage.getItem('userFavorites');
-        if (savedFavs) {
-          setFavorites(JSON.parse(savedFavs)); // Metni tekrar diziye çeviriyoruz
+        const storedUserData = await AsyncStorage.getItem('@user_data');
+        if (storedUserData) {
+          const userData = JSON.parse(storedUserData);
+          if (userData && userData.email) {
+            setUserEmail(userData.email);
+            
+            // O kullanıcıya özel favori anahtarı (Örn: userFavorites_sema@gmail.com)
+            const savedFavs = await AsyncStorage.getItem(`userFavorites_${userData.email}`);
+            if (savedFavs) {
+              setFavorites(JSON.parse(savedFavs));
+            } else {
+              setFavorites([]); // Başka kullanıcının verisi kalmasın diye sıfırla
+            }
+          }
         }
       } catch (error) {
         console.log("Favoriler yüklenirken hata oluştu", error);
       }
     };
-    loadFavorites();
+
+    loadUserAndFavorites();
   }, []);
 
-  // Kalp butonuna basıldığında çalışacak sihirli fonksiyon
+  // 2. Kalp butonuna basıldığında aktif kullanıcının e-postasına göre kaydet
   const toggleFavorite = async (eventId: string) => {
+    if (!userEmail) return; // Kullanıcı giriş yapmamışsa işlem yapma
+
     let updatedFavs = [];
     
-    // Eğer etkinlik zaten favorilerdeyse, listeden çıkar
     if (favorites.includes(eventId)) {
       updatedFavs = favorites.filter(id => id !== eventId);
     } else {
-      // Yoksa listeye ekle
       updatedFavs = [...favorites, eventId];
     }
     
-    setFavorites(updatedFavs); // Uygulama ekranlarını anında güncelle
-    await AsyncStorage.setItem('userFavorites', JSON.stringify(updatedFavs)); // Telefon hafızasına kalıcı kaydet
+    setFavorites(updatedFavs);
+    
+    // Her kullanıcının kendi key'ine özel olarak kaydet
+    await AsyncStorage.setItem(`userFavorites_${userEmail}`, JSON.stringify(updatedFavs));
   };
 
   return (

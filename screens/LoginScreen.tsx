@@ -69,7 +69,7 @@ const LoginScreen = ({ navigation }: any) => {
       const storedUserData = await AsyncStorage.getItem('@user_data');
       if (storedUserData !== null) {
         const userData = JSON.parse(storedUserData);
-        if (userData.email === email && userData.password === password) {
+        if (userData.email === email.trim() && userData.password === password.trim()) {
           await AsyncStorage.setItem('userToken', 'fake-jwt-token');
           navigation.replace('Home'); 
         } else {
